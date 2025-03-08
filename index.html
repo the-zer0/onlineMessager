@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+    <link rel="stylesheet" href="style.css">
+    
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">
+            <h2>Account Login</h2>
+        </div>
+        
+        <form id="login-form">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required autocomplete="username">
+                <div class="error" id="username-error">Please enter a valid username</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password">
+                <div class="error" id="password-error">Password must be at least 6 characters</div>
+            </div>
+            
+            <button type="submit" class="login-button" id="login-button">Log In</button>
+            
+            <div id="status-message" class="status-message"></div>
+        </form>
+        
+        <div class="login-footer">
+            <p>Don't have an account? <a href="#">Sign up</a></p>
+            <p><a href="#">Forgot password?</a></p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+
+            document.getElementById('username-error').style.display = 'none';
+            document.getElementById('password-error').style.display = 'none';
+            
+            const statusMessage = document.getElementById('status-message');
+            statusMessage.style.display = 'none';
+            statusMessage.className = 'status-message';
+            
+
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value;
+            
+
+            let isValid = true;
+            
+            if (username === '') {
+                document.getElementById('username-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (password.length < 3) { 
+                document.getElementById('password-error').style.display = 'block';
+                isValid = false;
+            }
+            
+            if (isValid) {
+
+                if (username === 'admin' && password === 'pass') {
+
+                    statusMessage.textContent = 'Login successful! Redirecting...';
+                    statusMessage.classList.add('success');
+                    statusMessage.style.display = 'block';
+                    
+                    setTimeout(function() {
+                        window.location.href = './message.html';
+                    }, 1500);
+                } else {
+
+                    statusMessage.textContent = 'Invalid username or password';
+                    statusMessage.classList.add('error');
+                    statusMessage.style.display = 'block';
+                }
+            }
+        });
+    </script>
+</body>
+</html>
